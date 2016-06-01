@@ -1,12 +1,16 @@
 COMMONFORM=node_modules/.bin/commonform
 BUILD=build
+TARGETS=$(addprefix $(BUILD)/,$(addprefix document,.docx .pdf))
 
-all: $(BUILD)/document.docx $(BUILD)/document.pdf
+all: $(TARGETS)
+
+# See the GNU Make Manual on "order-only-prerequisites"
+$(TARGETS): | $(BUILD)
 
 $(BUILD):
 	mkdir $(BUILD)
 
-$(BUILD)/document.docx: document.cform signatures.json blanks.json $(COMMONFORM) $(BUILD)
+$(BUILD)/document.docx: document.cform signatures.json blanks.json $(COMMONFORM)
 	$(COMMONFORM) render -f docx --title "Document Title" --number outline -s signatures.json -b blanks.json $< > $@
 
 %.pdf: %.docx
