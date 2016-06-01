@@ -5,9 +5,7 @@ RUN echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula selec
 
 RUN echo deb http://httpredir.debian.org/debian jessie main contrib non-free > /etc/apt/sources.list
 RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive \
-  apt-get install -y \
-  make unoconv ttf-mscorefonts-installer
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y make unoconv ttf-mscorefonts-installer
 RUN fc-cache -f
 
 WORKDIR /work
