@@ -28,5 +28,6 @@ DOCKER_TAG=one-commonform-document
 
 docker:
 	docker build -t $(DOCKER_TAG) .
-	docker run -v $(shell pwd)/$(BUILD):/work/$(BUILD) $(DOCKER_TAG)
-	sudo chown -R `whoami` $(BUILD)
+	docker run --name $(DOCKER_TAG) $(DOCKER_TAG)
+	docker cp $(DOCKER_TAG):/workdir/$(BUILD) .
+	docker rm $(DOCKER_TAG)
